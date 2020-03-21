@@ -16,6 +16,14 @@ npm install -g popdoc
 
 ## Usage
 
+Build, preview in browser, and watch for changes:
+
+```
+popdoc example.md -o example.html -w
+```
+
+Build only:
+
 ```
 popdoc example.md -o example.html
 ```
