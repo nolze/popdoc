@@ -1,5 +1,8 @@
 # Popdoc
 
+[![Build Status](https://travis-ci.com/nolze/popdoc.svg?token=zvurV5eq8Ybys2mhzkvz&branch=master)](https://travis-ci.com/nolze/popdoc)
+![npm](https://img.shields.io/npm/v/popdoc)
+
 A simple Markdown to HTML converter with in-browser live preview, customizable by Node's [unified](https://github.com/unifiedjs/unified) framework.
 
 ## Features
