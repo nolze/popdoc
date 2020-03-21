@@ -31,6 +31,8 @@ Build only:
 popdoc example.md -o example.html
 ```
 
+See [tests/example.md](https://raw.githubusercontent.com/nolze/popdoc/master/tests/example.md) for writing a frontmatter.
+
 ## Todo
 
 - [ ] Use open ports
