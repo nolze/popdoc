@@ -1,55 +1,25 @@
 #!/usr/bin/env node
 'use strict';
 
-const remark = require('remark');
-const remark2rehype = require('remark-rehype');
-const doc = require('rehype-document');
-const format = require('rehype-format');
-const html = require('rehype-stringify');
-const slug = require('rehype-slug');
-const report = require('vfile-reporter');
-const { program } = require('commander');
+// Watcher
+const chokidar = require('chokidar');
+
+// Server
 const express = require('express');
 const http = require('http');
-const reload = require('reload');
 const logger = require('morgan');
-const chokidar = require('chokidar');
-const vfile = require('to-vfile');
-const open = require('open');
-const wrap = require('rehype-wrap');
-const vfileMatter = require('vfile-matter');
 const mung = require('express-mung');
-const pkg = require('./package.json');
+const open = require('open');
+const reload = require('reload');
 
-function build(srcFile, dstFile) {
-  vfileMatter(srcFile, { strip: true });
-  const matter = srcFile.data.matter;
-  let processor = remark()
-    .data('settings', { footnotes: matter.footnotes === false ? false : true })
-    .use(remark2rehype)
-    .use(slug)
-    .use(doc, {
-      js: matter.js,
-      css: matter.css,
-      style: matter.style,
-      title: matter.title,
-      language: matter.language,
-    });
-  if (matter.wrapper) {
-    processor = processor.use(wrap, { wrapper: matter.wrapper });
-  }
-  processor
-    .use(format)
-    .use(html)
-    .process(srcFile, function(err, file) {
-      console.error(report(err || file));
-      // console.log(String(file));
-      if (file) {
-        dstFile.contents = file.contents;
-        vfile.writeSync(dstFile);
-      }
-    });
-}
+// VFile
+const vfile = require('to-vfile');
+const vfileMatter = require('vfile-matter');
+
+// Others
+const { program } = require('commander');
+const pkg = require('./package.json');
+const defaultBuild = require('./builder/default');
 
 function serve(dstFile) {
   const app = express();
@@ -107,6 +77,7 @@ program.version(pkg.version);
 program
   .arguments('<markdown_file>', 'Input filename')
   .requiredOption('-o, --output <output>', 'Output filename')
+  .option('-b, --builder [module]', 'Use custom builder')
   .option('-w, --watch', 'Watch and live preview')
   .action((markdownFile, options) => {
     const output = options.output;
@@ -114,8 +85,21 @@ program
       return;
     }
 
+    const srcFile = vfile.readSync(markdownFile);
+
+    vfileMatter(srcFile, { strip: true });
+    const matter = srcFile.data.matter;
+
+    // Set builder
+    let build = defaultBuild;
+    let buildOptions = { matter };
+
+    if (options.builder) {
+      build = require(options.builder);
+    }
+
     // Convert once
-    build(vfile.readSync(markdownFile), vfile(output));
+    build(srcFile, vfile(output), buildOptions);
 
     if (options.watch) {
       // Watch & build
@@ -125,7 +109,7 @@ program
         })
         .on('change', (_path) => {
           // console.log('change', markdownFile);
-          build(vfile.readSync(markdownFile), vfile(output));
+          build(srcFile, vfile(output), buildOptions);
         });
 
       // Serve & reload
