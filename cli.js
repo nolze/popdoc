@@ -6,6 +6,7 @@ const remark2rehype = require('remark-rehype');
 const doc = require('rehype-document');
 const format = require('rehype-format');
 const html = require('rehype-stringify');
+const slug = require('rehype-slug');
 const report = require('vfile-reporter');
 const { program } = require('commander');
 const express = require('express');
@@ -25,6 +26,7 @@ function build(srcFile, dstFile) {
   const matter = srcFile.data.matter;
   let pipe = remark()
     .use(remark2rehype)
+    .use(slug)
     .use(doc, {
       js: matter.js,
       css: matter.css,
