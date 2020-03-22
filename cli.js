@@ -24,7 +24,7 @@ const pkg = require('./package.json');
 function build(srcFile, dstFile) {
   vfileMatter(srcFile, { strip: true });
   const matter = srcFile.data.matter;
-  let pipe = remark()
+  let processor = remark()
     .use(remark2rehype)
     .use(slug)
     .use(doc, {
@@ -35,9 +35,9 @@ function build(srcFile, dstFile) {
       language: matter.language,
     });
   if (matter.wrapper) {
-    pipe = pipe.use(wrap, { wrapper: matter.wrapper });
+    processor = processor.use(wrap, { wrapper: matter.wrapper });
   }
-  pipe
+  processor
     .use(format)
     .use(html)
     .process(srcFile, function(err, file) {
