@@ -38,6 +38,7 @@
   "license": "MIT",
   "repository": "https://github.com/nolze/popdoc",
   "scripts": {
+    "lint": "eslint .",
     "test": "./tests/cli.sh"
   }
 }
