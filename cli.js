@@ -25,6 +25,7 @@ function build(srcFile, dstFile) {
   vfileMatter(srcFile, { strip: true });
   const matter = srcFile.data.matter;
   let processor = remark()
+    .data('settings', { footnotes: matter.footnotes === false ? false : true })
     .use(remark2rehype)
     .use(slug)
     .use(doc, {
