@@ -32,7 +32,8 @@
     "tape": "^4.13.2"
   },
   "files": [
-    "cli.js"
+    "cli.js",
+    "builder"
   ],
   "homepage": "https://github.com/nolze/popdoc",
   "license": "MIT",
