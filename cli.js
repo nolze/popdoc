@@ -85,21 +85,23 @@ program
       return;
     }
 
-    const srcFile = vfile.readSync(markdownFile);
-
-    vfileMatter(srcFile, { strip: true });
-    const matter = srcFile.data.matter;
-
     // Set builder
     let build = defaultBuild;
-    let buildOptions = { matter };
 
     if (options.builder) {
       build = require(options.builder);
     }
 
+    const toBuild = (markdownFile, output, buildOptions = {}) => {
+      const srcFile = vfile.readSync(markdownFile);
+      vfileMatter(srcFile, { strip: true });
+      const matter = srcFile.data.matter;
+      Object.assign(buildOptions, { matter });
+      build(srcFile, vfile(output), buildOptions);
+    };
+
     // Convert once
-    build(srcFile, vfile(output), buildOptions);
+    toBuild(markdownFile, output, {});
 
     if (options.watch) {
       // Watch & build
@@ -109,7 +111,7 @@ program
         })
         .on('change', (_path) => {
           // console.log('change', markdownFile);
-          build(srcFile, vfile(output), buildOptions);
+          toBuild(markdownFile, output, {});
         });
 
       // Serve & reload
