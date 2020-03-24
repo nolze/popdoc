@@ -5,7 +5,7 @@ script:
   - npm run lint
   - npm run test
   - npm docs:build
-  deploy:
+deploy:
   - provider: npm
     email: nolze@archlinux.us
     on:
