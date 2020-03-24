@@ -22,7 +22,7 @@ npm install -g popdoc
 Build, preview in browser, and watch for changes:
 
 ```
-popdoc example.md -o example.html -w
+popdoc example.md -o example.html --watch
 ```
 
 Build only:
@@ -31,7 +31,7 @@ Build only:
 popdoc example.md -o example.html
 ```
 
-See [tests/example.md](https://raw.githubusercontent.com/nolze/popdoc/master/tests/example.md) for writing a frontmatter.
+See [tests/example.md](https://raw.githubusercontent.com/nolze/popdoc/master/tests/example.md) for writing a frontmatter (set title, styles, ...)
 
 ## Todo
 
