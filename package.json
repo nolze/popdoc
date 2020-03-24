@@ -29,7 +29,8 @@
   },
   "devDependencies": {
     "eslint": "^6.8.0",
-    "tape": "^4.13.2"
+    "tape": "^4.13.2",
+    "vuepress": "^1.4.0"
   },
   "files": [
     "cli.js",
@@ -40,6 +41,7 @@
   "repository": "https://github.com/nolze/popdoc",
   "scripts": {
     "lint": "eslint .",
-    "test": "./tests/cli.sh"
+    "test": "./tests/cli.sh",
+    "docs:build": "vuepress build docs"
   }
 }

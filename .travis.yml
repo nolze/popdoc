@@ -4,10 +4,18 @@ node_js:
 script:
   - npm run lint
   - npm run test
-deploy:
-  provider: npm
-  email: nolze@archlinux.us
-  on:
-    tags: true
-  api_key:
-    secure: DKuJqqu1YCoyWawEX7iei4sPhD2XkjjkFtBRzAwHwbbr9hKWZzz6dOT5//7NTGXTNjE6PpGrXLjkx15zAWJhhVxktkmKRyyUxtdk9BCD77JcDitMPVaCwTAalbpwYZUiE5EvHNcs39ESoZlH//FpOUTcBczb68Dp2DfSe43ATjGIU2BLN20a/GNCiRyzqVsVPRFxAICf9SvSr/UM3AGcCx1loDXwiONRhG+mpK7TJlaYG9b4moXULyKVl6iBjUgl70XrhV9+miZewszpFUm7RO7AC0N8PAlH+Kh1QGcWh8ZL4QneUy73+st1XY6uvegVpHztv+VSsRgID/WJRm3FVCaAUdb67zMQCsHUF1JjWOPDn5ehxvIMez/FS6U0gHl9IOwNNQwLEBWTWmMjlO6Tku68zWWiDwBcyEn4tFB1Ql7m0Mtvo2FnSVh02V1UVdG67l+o8Sax7uUdmpihfqWpaBMUW5mQeBhi6D57U/F72lrZ7oqIj1BsdE44SbtKhlIHydg/QCNwNiOuqfvDWqRUK3dw03piAebcSWNkWS9bYkVNgx0XclsmovFKGNJNPTZtlt94BdiIrgROX2USEjd/VE0OqBZfFUzCG+ntpSfxfEBi+X+KKs2gAyGIvgTL5n5g/DQUAuqN4ODnLLp5An6e0qCev9Q09sAPBTHYYtI1pyA=
+  - npm docs:build
+  deploy:
+  - provider: npm
+    email: nolze@archlinux.us
+    on:
+      tags: true
+    api_key:
+      secure: DKuJqqu1YCoyWawEX7iei4sPhD2XkjjkFtBRzAwHwbbr9hKWZzz6dOT5//7NTGXTNjE6PpGrXLjkx15zAWJhhVxktkmKRyyUxtdk9BCD77JcDitMPVaCwTAalbpwYZUiE5EvHNcs39ESoZlH//FpOUTcBczb68Dp2DfSe43ATjGIU2BLN20a/GNCiRyzqVsVPRFxAICf9SvSr/UM3AGcCx1loDXwiONRhG+mpK7TJlaYG9b4moXULyKVl6iBjUgl70XrhV9+miZewszpFUm7RO7AC0N8PAlH+Kh1QGcWh8ZL4QneUy73+st1XY6uvegVpHztv+VSsRgID/WJRm3FVCaAUdb67zMQCsHUF1JjWOPDn5ehxvIMez/FS6U0gHl9IOwNNQwLEBWTWmMjlO6Tku68zWWiDwBcyEn4tFB1Ql7m0Mtvo2FnSVh02V1UVdG67l+o8Sax7uUdmpihfqWpaBMUW5mQeBhi6D57U/F72lrZ7oqIj1BsdE44SbtKhlIHydg/QCNwNiOuqfvDWqRUK3dw03piAebcSWNkWS9bYkVNgx0XclsmovFKGNJNPTZtlt94BdiIrgROX2USEjd/VE0OqBZfFUzCG+ntpSfxfEBi+X+KKs2gAyGIvgTL5n5g/DQUAuqN4ODnLLp5An6e0qCev9Q09sAPBTHYYtI1pyA=
+  - provider: pages
+    skip_cleanup: true
+    local_dir: docs/.vuepress/dist
+    github_token: $GITHUB_TOKEN
+    keep_history: true
+    on:
+      branch: master
