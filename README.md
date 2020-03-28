@@ -19,16 +19,16 @@ npm install -g popdoc
 
 ## Usage
 
+Build:
+
+```
+popdoc example.md -o example.html
+```
+
 Build, preview in browser, and watch for changes:
 
 ```
 popdoc example.md -o example.html --watch
-```
-
-Build only:
-
-```
-popdoc example.md -o example.html
 ```
 
 See [tests/example.md](https://raw.githubusercontent.com/nolze/popdoc/master/tests/example.md) for writing a frontmatter (set title, styles, ...)
