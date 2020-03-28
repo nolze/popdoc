@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 
+const path = require('path');
+
 // Watcher
 const chokidar = require('chokidar');
 
@@ -89,7 +91,7 @@ program
     let build = defaultBuild;
 
     if (options.builder) {
-      build = require(options.builder);
+      build = require(path.resolve(options.builder));
     }
 
     const toBuild = (markdownFile, output, buildOptions = {}) => {
