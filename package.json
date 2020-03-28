@@ -40,8 +40,8 @@
   "license": "MIT",
   "repository": "https://github.com/nolze/popdoc",
   "scripts": {
+    "docs:build": "vuepress build docs",
     "lint": "eslint .",
-    "test": "./tests/cli.sh",
-    "docs:build": "vuepress build docs"
+    "test": "./tests/cli.sh"
   }
 }
