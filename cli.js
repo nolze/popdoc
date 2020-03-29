@@ -2,6 +2,7 @@
 'use strict';
 
 const path = require('path');
+const getPort = require('get-port');
 
 // Watcher
 const chokidar = require('chokidar');
@@ -23,9 +24,10 @@ const { program } = require('commander');
 const pkg = require('./package.json');
 const defaultBuild = require('./builder/default');
 
-function serve(dstFile) {
+async function serve(dstFile) {
   const app = express();
-  app.set('port', process.env.PORT || 3000);
+  const port = await getPort({ port: getPort.makeRange(3000, 3100) });
+  app.set('port', port);
   app.use(logger('dev'));
   const withReloadListener = mung.write((chunk, encoding, req, res) => {
     if (!res.req.url === '/' + dstFile.basename) return;
@@ -60,7 +62,8 @@ function serve(dstFile) {
   });
 
   const startReloader = async () => {
-    const reloadReturned = await reload(app);
+    const reloadPort = await getPort({ port: getPort.makeRange(9856, 9956) });
+    const reloadReturned = await reload(app, { port: reloadPort });
     chokidar
       .watch(dstFile.path, {
         // disableGlobbing: true,
