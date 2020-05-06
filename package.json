@@ -16,6 +16,7 @@
     "open": "^7.0.3",
     "rehype-document": "^4.0.0",
     "rehype-format": "^3.0.1",
+    "rehype-raw": "^4.0.2",
     "rehype-slug": "^3.0.0",
     "rehype-stringify": "^6.0.1",
     "rehype-wrap": "^1.0.8",
