@@ -7,7 +7,7 @@
     "popdoc": "cli.js"
   },
   "dependencies": {
-    "chokidar": "^3.3.1",
+    "chokidar": "^3.5.2",
     "commander": "^5.0.0",
     "express": "^4.17.1",
     "express-mung": "^0.5.1",
