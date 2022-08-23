@@ -1,21 +1,23 @@
-'use strict';
+import report from "vfile-reporter";
+import { writeSync } from "to-vfile";
 
-const report = require('vfile-reporter');
-const vfile = require('to-vfile');
+import { remark } from "remark";
+import remark2rehype from "remark-rehype";
+import smartypants from "remark-smartypants";
+import supersub from "remark-supersub";
 
-const remark = require('remark');
-const remark2rehype = require('remark-rehype');
-
-const doc = require('rehype-document');
-const format = require('rehype-format');
-const html = require('rehype-stringify');
-const raw = require('rehype-raw');
-const slug = require('rehype-slug');
-const wrap = require('rehype-wrap');
+import doc from "rehype-document";
+import format from "rehype-format";
+import html from "rehype-stringify";
+import raw from "rehype-raw";
+import slug from "rehype-slug";
+import wrap from "rehype-wrap";
 
 function build(srcFile, dstFile, { matter }) {
   let processor = remark()
-    .data('settings', { footnotes: matter.footnotes === false ? false : true })
+    .data("settings", { footnotes: matter.footnotes === false ? false : true })
+    .use(supersub)
+    .use(smartypants)
     .use(remark2rehype, { allowDangerousHTML: true })
     .use(raw)
     .use(slug)
@@ -35,10 +37,10 @@ function build(srcFile, dstFile, { matter }) {
     .process(srcFile, function(err, file) {
       console.error(report(err || file));
       if (file) {
-        dstFile.contents = file.contents;
-        vfile.writeSync(dstFile);
+        dstFile.value = file.value;
+        writeSync(dstFile);
       }
     });
 }
 
-module.exports = build;
+export default build;

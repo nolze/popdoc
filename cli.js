@@ -1,32 +1,31 @@
 #!/usr/bin/env node
-'use strict';
 
-const path = require('path');
-const getPort = require('get-port');
+import { resolve } from 'path';
+import getPort, { portNumbers } from 'get-port';
 
 // Watcher
-const chokidar = require('chokidar');
+import { watch } from 'chokidar';
 
 // Server
-const express = require('express');
-const http = require('http');
-const logger = require('morgan');
-const mung = require('express-mung');
-const open = require('open');
-const reload = require('reload');
+import express from 'express';
+import { createServer } from 'http';
+import logger from 'morgan';
+import mung from 'express-mung';
+import open from 'open';
+import reload from 'reload';
 
 // VFile
-const vfile = require('to-vfile');
-const vfileMatter = require('vfile-matter');
+import { toVFile, readSync } from 'to-vfile';
+import { matter as vfileMatter } from 'vfile-matter';
 
 // Others
-const { program } = require('commander');
-const pkg = require('./package.json');
-const defaultBuild = require('./builder/default');
+import { program } from 'commander';
+import pkg from './package.json' assert { type: "json" };
+import defaultBuild from './builder/default.js';
 
 async function serve(dstFile) {
   const app = express();
-  const port = await getPort({ port: getPort.makeRange(3000, 3100) });
+  const port = await getPort({ port: portNumbers(3000, 3100) });
   app.set('port', port);
   app.use(logger('dev'));
   const withReloadListener = mung.write((chunk, encoding, req, res) => {
@@ -53,7 +52,7 @@ async function serve(dstFile) {
     }),
   );
 
-  const server = http.createServer(app);
+  const server = createServer(app);
 
   server.listen(app.get('port'), function() {
     const url = `http://localhost:${app.get('port')}/${dstFile.basename}`;
@@ -62,10 +61,9 @@ async function serve(dstFile) {
   });
 
   const startReloader = async () => {
-    const reloadPort = await getPort({ port: getPort.makeRange(9856, 9956) });
+    const reloadPort = await getPort({ port: portNumbers(9856, 9956) });
     const reloadReturned = await reload(app, { port: reloadPort });
-    chokidar
-      .watch(dstFile.path, {
+    watch(dstFile.path, {
         // disableGlobbing: true,
       })
       .on('change', (_path) => {
@@ -93,16 +91,16 @@ program
     // Set builder
     let build = defaultBuild;
 
-    if (options.builder) {
-      build = require(path.resolve(options.builder));
-    }
+    // if (options.builder) {
+    //   build = require(resolve(options.builder));
+    // }
 
     const toBuild = (markdownFile, output, buildOptions = {}) => {
-      const srcFile = vfile.readSync(markdownFile);
+      const srcFile = readSync(markdownFile);
       vfileMatter(srcFile, { strip: true });
       const matter = srcFile.data.matter;
       Object.assign(buildOptions, { matter });
-      build(srcFile, vfile(output), buildOptions);
+      build(srcFile, toVFile(output), buildOptions);
     };
 
     // Convert once
@@ -110,8 +108,7 @@ program
 
     if (options.watch) {
       // Watch & build
-      chokidar
-        .watch(markdownFile, {
+      watch(markdownFile, {
           // disableGlobbing: true,
         })
         .on('change', (_path) => {
@@ -120,7 +117,7 @@ program
         });
 
       // Serve & reload
-      serve(vfile(output));
+      serve(toVFile(output));
     }
   });
 

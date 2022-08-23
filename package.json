@@ -7,32 +7,34 @@
     "popdoc": "cli.js"
   },
   "dependencies": {
-    "chokidar": "^3.5.2",
-    "commander": "^5.0.0",
-    "express": "^4.17.1",
+    "chokidar": "^3.5.3",
+    "commander": "^9.4.0",
+    "express": "^4.18.1",
     "express-mung": "^0.5.1",
-    "get-port": "^5.1.1",
+    "get-port": "^6.1.2",
     "morgan": "^1.10.0",
-    "open": "^7.0.3",
-    "rehype-document": "^4.0.0",
-    "rehype-format": "^3.0.1",
-    "rehype-raw": "^4.0.2",
-    "rehype-slug": "^3.0.0",
-    "rehype-stringify": "^6.0.1",
-    "rehype-wrap": "^1.0.8",
-    "reload": "^3.0.4",
-    "remark": "^11.0.2",
-    "remark-html": "^10.0.0",
-    "remark-rehype": "^5.0.0",
-    "to-vfile": "^6.1.0",
-    "unified": "^8.4.2",
-    "vfile-matter": "^1.0.2",
-    "vfile-reporter": "^6.0.1"
+    "open": "^8.4.0",
+    "rehype-document": "^6.1.0",
+    "rehype-format": "^4.0.1",
+    "rehype-raw": "^6.1.1",
+    "rehype-slug": "^5.0.1",
+    "rehype-stringify": "^9.0.3",
+    "rehype-wrap": "^1.0.10",
+    "reload": "^3.2.0",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1",
+    "remark-rehype": "^10.1.0",
+    "remark-smartypants": "^2.0.0",
+    "remark-supersub": "^1.0.0",
+    "to-vfile": "^7.2.3",
+    "unified": "^10.1.2",
+    "vfile-matter": "^4.0.0",
+    "vfile-reporter": "^7.0.4"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "tape": "^4.13.2",
-    "vuepress": "^1.4.0"
+    "eslint": "^8.22.0",
+    "tape": "^5.6.0",
+    "vuepress": "^1.9.7"
   },
   "files": [
     "cli.js",
@@ -45,5 +47,9 @@
     "docs:build": "vuepress build docs",
     "lint": "eslint .",
     "test": "./tests/cli.sh"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14.16"
   }
 }
