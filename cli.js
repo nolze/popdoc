@@ -82,7 +82,7 @@ program
   .requiredOption('-o, --output <output>', 'Output filename')
   .option('-b, --builder [module]', 'Use custom builder')
   .option('-w, --watch', 'Watch and live preview')
-  .action((markdownFile, options) => {
+  .action(async (markdownFile, options) => {
     const output = options.output;
     if (!markdownFile || !output) {
       return;
@@ -91,9 +91,9 @@ program
     // Set builder
     let build = defaultBuild;
 
-    // if (options.builder) {
-    //   build = require(resolve(options.builder));
-    // }
+    if (options.builder) {
+      build = (await import(resolve(options.builder))).default;
+    }
 
     const toBuild = (markdownFile, output, buildOptions = {}) => {
       const srcFile = readSync(markdownFile);
