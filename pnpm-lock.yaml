@@ -85,12 +85,18 @@ devDependencies:
   '@babel/plugin-syntax-import-assertions':
     specifier: ^7.22.5
     version: 7.22.5(@babel/core@7.22.20)
+  '@vuepress/client':
+    specifier: 2.0.0-beta.67
+    version: 2.0.0-beta.67
   eslint:
     specifier: ^8.50.0
     version: 8.50.0
   tape:
     specifier: ^5.7.0
     version: 5.7.0
+  vue:
+    specifier: ^3.3.4
+    version: 3.3.4
   vuepress:
     specifier: 2.0.0-beta.67
     version: 2.0.0-beta.67(@vuepress/client@2.0.0-beta.67)(vue@3.3.4)

@@ -26,26 +26,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Test
-        run: npm run test
+        run: pnpm run test
 
       - name: Build docs
-        run: npm run docs:build
+        run: pnpm run docs:build
 
       - name: Publish to npm
         if: github.ref == 'refs/tags/*'
-        run: npm publish
+        run: pnpm publish
 
       - name: Deploy docs
         if: github.ref == 'refs/heads/master'
