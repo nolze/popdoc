@@ -2,7 +2,7 @@
   "name": "popdoc",
   "description": "A simple Markdown to HTML converter with in-browser live preview, customizable by Node's unified framework",
   "version": "0.3.1",
-  "author": "nolze <nolze@archlinux.us>",
+  "author": "nolze <nolze@int3.net>",
   "bin": {
     "popdoc": "cli.js"
   },
