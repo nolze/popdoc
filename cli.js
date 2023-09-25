@@ -20,7 +20,7 @@ import { matter as vfileMatter } from 'vfile-matter';
 
 // Others
 import { program } from 'commander';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: "json" };
 import defaultBuild from './builder/default.js';
 
 async function serve(dstFile) {

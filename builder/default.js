@@ -2,6 +2,7 @@ import report from "vfile-reporter";
 import { writeSync } from "to-vfile";
 
 import { remark } from "remark";
+import remarkGfm from "remark-gfm";
 import remark2rehype from "remark-rehype";
 import smartypants from "remark-smartypants";
 import supersub from "remark-supersub";
@@ -16,6 +17,7 @@ import wrap from "rehype-wrap";
 function build(srcFile, dstFile, { matter }) {
   let processor = remark()
     .data("settings", { footnotes: matter.footnotes === false ? false : true })
+    .use(remarkGfm)
     .use(supersub)
     .use(smartypants)
     .use(remark2rehype, { allowDangerousHTML: true })

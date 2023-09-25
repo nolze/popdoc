@@ -2,7 +2,7 @@
 
 set -ev
 
-npm unlink && npm link
+npm uninstall --global && npm link
 popdoc tests/example.md -o /tmp/example.html
-npm unlink
+npm uninstall --global
 diff tests/example.html /tmp/example.html
