@@ -1,6 +1,6 @@
 # Popdoc
 
-[![Build Status](https://travis-ci.com/nolze/popdoc.svg?token=zvurV5eq8Ybys2mhzkvz&branch=master)](https://travis-ci.com/nolze/popdoc)
+[![Build Status](https://github.com/nolze/popdoc/actions/workflows/ci.yaml/badge.svg)](https://github.com/nolze/popdoc/actions/workflows/ci.yaml)
 [![npm version](https://img.shields.io/npm/v/popdoc.svg)](https://www.npmjs.com/package/popdoc)
 [![npm downloads](https://img.shields.io/npm/dm/popdoc.svg)](https://www.npmjs.com/package/popdoc)
 
@@ -8,9 +8,8 @@ A simple Pandoc-like Markdown to HTML converter with in-browser live preview, cu
 
 ## Features
 
-- Generates a complete HTML document, not only for preview
-- Easily customize css, title, language, ..., using YAML frontmatter
-- Should be simpler than Pandoc
+- Generates a complete HTML document, not only for the preview purpose
+- Easily customize css, title, language, etc. using YAML frontmatter
 
 ## Install
 
